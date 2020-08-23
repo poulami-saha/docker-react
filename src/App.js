@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import SignUp from "./signUp";
+import "./App.css";
+import TodoList from "./Todolist";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      todoList: [],
+    };
+  }
+  addTodo = (todo) => {
+    let newList = this.state.todoList;
+    newList.push(todo);
+    this.setState({ todoList: newList });
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.addTodo(this.state.todo);
+    this.setState({ todo: "" });
+  };
+  render() {
+    return (
+      <div className="App">
+        <SignUp addTodo={this.addTodo} />
+
+        <TodoList todos={this.state.todoList} />
+      </div>
+    );
+  }
 }
 
 export default App;
